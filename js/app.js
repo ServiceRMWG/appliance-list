@@ -24,7 +24,8 @@ app.controller('SheetListController', ['$scope', 'sheets', function SheetListCon
 	console.log(JSON.stringify(sheets.list[0]));
 }]);
 
-app.controller('CreationController', ['$scope', '$location', 'sheets', function CreationController($scope, $location, sheets) {
+app.controller('CreationController', ['$scope', '$location', 'sheets', 'counting', function CreationController($scope, $location, sheets, counting) {
+//app.controller('CreationController', ['$scope', '$location', 'sheets', function CreationController($scope, $location, sheets) {
 	function createOrderLine() {
 		return {
 			productName: '',
@@ -32,8 +33,6 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 			count: 0
 		};
 	}
-
-	$scope.lines = [createOrderLine()];
 
 	$scope.initialize = function () {
 		$scope.lines = [createOrderLine()];
@@ -57,6 +56,7 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 		}
 	};
 
+/*
 	$scope.getSubtotal = function (orderLine) {
 		return orderLine.unitPrice * orderLine.count;
 	};
@@ -70,18 +70,20 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 
 		return totalAmount;
 	};
+*/
+
+	angular.extend($scope, counting);
+
+	$scope.initialize();
+	
 }]);
 
-app.controller('SheetController', ['$scope', '$routeParams', 'sheets', function SheetController($scope, $routeParams, sheets) {
-	var sheet = sheets.get($routeParams.id);
+app.controller('SheetController', ['$scope', '$routeParams', 'sheets', 'counting', function SheetController($scope, $routeParams, sheets, counting) {
+//	var sheet = sheets.get($routeParams.id);
 
-	angular.extend($scope, sheet);
+	angular.extend($scope, sheets.get($routeParams.id));
+	angular.extend($scope, counting);
 
-	$scope.getSubtotal = function(orderline) {
-	};
-
-	$scope.getTotalAmount = function(lines) {
-	};
 }]);
 
 app.service('sheets', [function () {
@@ -113,3 +115,19 @@ app.service('sheets', [function () {
 		return null;
 	};
 }]);
+
+app.service('counting', function() {
+	this.getSubtotal = function(orderLine) {
+		return orderLine.unitPrice * orderLine.count;		
+	};
+
+	this.getTotalAmount = function(lines) {
+		var totalAmount = 0;
+
+		angular.forEach(lines, function (orderLine) {
+			totalAmount += this.getSubtotal(orderLine);
+		}, this);
+
+		return totalAmount;
+	};
+});
