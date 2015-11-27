@@ -42,7 +42,7 @@
     <!-- ---------------------------->
     <script type="text/ng-template" id="new-tmpl">
       <h1>帳票作成</h1>
-      <form ng-submit="save()">
+      <form novalidate name="sheetForm" ng-submit="save()">
         <table>
           <thead>
             <tr>
@@ -55,11 +55,15 @@
           </thead>
           <tbody>
             <tr ng-repeat="orderLine in lines">
-              <td><input type="text"   ng-model="orderLine.productName"></td>
-              <td><input type="number" ng-model="orderLine.unitPrice"></td>
-              <td><input type="number" ng-model="orderLine.count"></td>
+              <td><input type="text" ng-model="orderLine.productName"
+                         required></td>
+              <td><input type="number" ng-model="orderLine.unitPrice"
+                         required min="0" ng-pattern="/^\d+$/"></td>
+              <td><input type="number" ng-model="orderLine.count"
+                         required min="0" ng-pattern="/^\d+$/"></td>
               <td>{{ getSubtotal(orderLine) | number }}</td>
-              <td><button type="button" ng-click="removeLine(orderLine)">削除</button></td>
+              <td><button type="button" ng-disabled="lines.length < 2"
+                          ng-click="removeLine(orderLine)">削除</button></td>
             </tr>
           </tbody>
           <tfoot>
@@ -72,9 +76,14 @@
         <div>
           <button type="button" ng-click="addLine()">明細行を追加</button>
           <button type="button" ng-click="initialize()">帳票を初期化</button>
-          <button type="submit">帳票を保存</button>
+          <button type="submit" ng-disabled="sheetForm.$invalid">帳票を保存</button>
         </div>
-        <form>
+        <div ng-show="sheetForm.$invalid">
+          <span ng-show="sheetForm.$error.required">空欄が存在しています。</span>
+          <span ng-show="sheetForm.$error.min">単価、個数の最小値は 0 です。</span>
+          <span ng-show="sheetForm.$error.pattern">単価、個数は整数で指定してください。</span>
+        </div>
+      </form>
     </script>      
 
     <!-- ---------------------------->
