@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>home electronics list</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <style type="text/css">
+      .import-image {
+          color: #fff;
+          background-color: #2196F3;
+          display: inline-block;
+          padding: 6px 12px;
+          font-size: 14px;
+          line-height: 1.42857143;
+          text-align: center;
+          white-space: nowrap;
+          -ms-touch-action: manipulation;
+          touch-action: manipulation;
+          cursor: pointer;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          border: none;
+          border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body ng-app="App">
+    <div id="header"><h2 class="title">home electronics list</h2></div>
+    <div id="contents" ng-controller="MainController">
+      <ul class="chapter-toc">
+        <li>AngularJS</li>
+      </ul>
+      <!--
+          <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.3/angular.min.js"></script>
+          -->
+      <script src="js/angular.min.js"></script>
+      <script src="js/angular-route.min.js"></script>
+      <script src="js/app.js"></script>
+
+      <div ng-view></div>
+      <ul>
+        <li><a href="#/">帳票一覧</a></li>
+        <li><a href="#/new">帳票作成</a></li>
+      </ul>
+
+      <!-- ---------------------------->
+      <script type="text/ng-template" id="index-tmpl">
+        <h1>帳票一覧</h1>
+        <ul>
+          <li>#x yyyy/mm/dd <a href="#/sheet/x">詳細を確認する</a></li>
+          <li>#y yyyy/mm/dd <a href="#/sheet/y">詳細を確認する</a></li>
+          <li>#z yyyy/mm/dd <a href="#/sheet/z">詳細を確認する</a></li>
+        </ul>
+      </script>
+
+      <!-- ---------------------------->
+      <script type="text/ng-template" id="new-tmpl">
+        <h1>帳票作成</h1>
+        <form>
+          <table>
+            <thead>
+              <tr>
+                <th>商品名</th>
+                <th>単価</th>
+                <th>個数</th>
+                <th>小計</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="text"></td>
+                <td><input type="number"></td>
+                <td><input type="number"></td>
+                <td>4,500</td>
+                <td><button type="button">削除</button></td>
+              </tr>
+              <tr>
+                <td><input type="text"></td>
+                <td><input type="number"></td>
+                <td><input type="number"></td>
+                <td>6,000</td>
+                <td><button type="button">削除</button></td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td colspan="3">合計:</td>
+                <td colspan="2">10,500</td>
+              </tr>
+            </tfoot>
+          </table>
+          <div>
+            <button type="button">明細行を追加</button>
+            <button type="button">帳票を初期化</button>
+            <button type="submit">帳票を保存</button>
+          </div>
+          <form>
+      </script>      
+
+      <!-- ---------------------------->
+      <script type="text/ng-template" id="sheet-tmpl">
+        <h1>帳票詳細 #x</h1>
+        <p>作成日時: yyyy/mm/dd</p>
+        <table>
+          <thead>
+            <tr>
+              <th>商品名</th>
+              <th>単価</th>
+              <th>個数</th>
+              <th>小計</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>商品名1</td>
+              <td>1,600</td>
+              <td>10</td>
+              <td>16,000</td>
+            </tr>
+            <tr>
+              <td>商品名2</td>
+              <td>2,000</td>
+              <td>12</td>
+              <td>24,000</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="3">合計:</td>
+              <td>40,000</td>
+            </tr>
+          </tfoot>
+        </table>
+      </script>      
+
+    </div>
+  </body>
+</html>
