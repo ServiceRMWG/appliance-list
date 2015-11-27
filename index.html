@@ -37,7 +37,7 @@
     <!-- ---------------------------->
     <script type="text/ng-template" id="new-tmpl">
       <h1>帳票作成</h1>
-      <form>
+      <form ng-submit="save()">
         <table>
           <thead>
             <tr>
@@ -49,31 +49,24 @@
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td><input type="text"></td>
-              <td><input type="number"></td>
-              <td><input type="number"></td>
-              <td>4,500</td>
-              <td><button type="button">削除</button></td>
-            </tr>
-            <tr>
-              <td><input type="text"></td>
-              <td><input type="number"></td>
-              <td><input type="number"></td>
-              <td>6,000</td>
-              <td><button type="button">削除</button></td>
+            <tr ng-repeat="orderLine in lines">
+              <td><input type="text"   ng-model="orderLine.productName"></td>
+              <td><input type="number" ng-model="orderLine.unitPrice"></td>
+              <td><input type="number" ng-model="orderLine.count"></td>
+              <td>{{ getSubtotal(orderLine) | number }}</td>
+              <td><button type="button" ng-click="removeLine(orderLine)">削除</button></td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
               <td colspan="3">合計:</td>
-              <td colspan="2">10,500</td>
+              <td colspan="2">{{ getTotalAmount(lines) | number }}</td>
             </tr>
           </tfoot>
         </table>
         <div>
-          <button type="button">明細行を追加</button>
-          <button type="button">帳票を初期化</button>
+          <button type="button" ng-click="addLine()">明細行を追加</button>
+          <button type="button" ng-click="initialize()">帳票を初期化</button>
           <button type="submit">帳票を保存</button>
         </div>
         <form>
