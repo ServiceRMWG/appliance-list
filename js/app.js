@@ -19,11 +19,12 @@ app.config(['$routeProvider', function ($routeProvider) {
 		});	
 }]);
 
-app.controller('SheetListController', [function SheetListController() {
-	
+app.controller('SheetListController', ['$scope', 'sheets', function SheetListController($scope, sheets) {
+	$scope.list = sheets.list;
+	console.log(JSON.stringify(sheets.list[0]));
 }]);
 
-app.controller('CreationController', ['$scope', function CreationController($scope) {
+app.controller('CreationController', ['$scope', '$location', 'sheets', function CreationController($scope, $location, sheets) {
 	function createOrderLine() {
 		return {
 			productName: '',
@@ -43,6 +44,8 @@ app.controller('CreationController', ['$scope', function CreationController($sco
 	};
 
 	$scope.save = function () {
+		sheets.add($scope.lines);
+		$location.path('/');
 	};
 
 	$scope.removeLine = function (target) {
@@ -70,4 +73,34 @@ app.controller('CreationController', ['$scope', function CreationController($sco
 }]);
 
 app.controller('SheetController', [function SheetController() {
+}]);
+
+app.service('sheets', [function () {
+	this.list = []; // 帳票リスト
+
+	// 明細行リストを受け取り新しい帳票を作成して帳票リストに加える
+	this.add = function (lines) {
+		this.list.push({
+			id: String(this.list.length + 1),
+			createdAt: Date.now(),
+			lines: lines
+		});
+
+		console.log(this.list);
+	};
+
+	// 任意の id を持った帳票を返す
+	this.get = function (id) {
+		var list = this.list;
+		var index = list.length;
+		var sheet;
+
+		while (index--) {
+			sheet = list[index];
+			if (sheet.id === id) {
+				return sheet;
+			}
+		}
+		return null;
+	};
 }]);
