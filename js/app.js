@@ -72,7 +72,16 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 	};
 }]);
 
-app.controller('SheetController', [function SheetController() {
+app.controller('SheetController', ['$scope', '$routeParams', 'sheets', function SheetController($scope, $routeParams, sheets) {
+	var sheet = sheets.get($routeParams.id);
+
+	angular.extend($scope, sheet);
+
+	$scope.getSubtotal = function(orderline) {
+	};
+
+	$scope.getTotalAmount = function(lines) {
+	};
 }]);
 
 app.service('sheets', [function () {

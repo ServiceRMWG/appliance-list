@@ -88,8 +88,9 @@
 
     <!-- ---------------------------->
     <script type="text/ng-template" id="sheet-tmpl">
-      <h1>帳票詳細 #x</h1>
-      <p>作成日時: yyyy/mm/dd</p>
+      <div ng-show="id">
+      <h1>帳票詳細 #{{ id }}</h1>
+      <p>作成日時: {{ createdAt | date:'yyyy/MM/dd HH:mm' }}</p>
       <table>
         <thead>
           <tr>
@@ -100,23 +101,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>商品名1</td>
-            <td>1,600</td>
-            <td>10</td>
-            <td>16,000</td>
-          </tr>
-          <tr>
-            <td>商品名2</td>
-            <td>2,000</td>
-            <td>12</td>
-            <td>24,000</td>
+          <tr ng-repeat="orderLine in lines">
+            <td>{{ orderLine.productName }}</td>
+            <td>{{ orderLine.unitPrice | number }}</td>
+            <td>{{ orderLine.count | number }}</td>
+            <td>{{ getSubtotal(orderLine) | number }}</td>
           </tr>
         </tbody>
         <tfoot>
           <tr>
             <td colspan="3">合計:</td>
-            <td>40,000</td>
+            <td>{{ getTotalAmount(lines) | number }}</td>
           </tr>
         </tfoot>
       </table>
