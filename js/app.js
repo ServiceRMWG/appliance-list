@@ -91,42 +91,42 @@ app.service('sheets', [function () {
 	this.list = []; // 帳票リスト
 
 	// 明細行リストを受け取り新しい帳票を作成して帳票リストに加える
-	this.add = function (lines) {
-		this.list.push({
-			id: String(this.list.length + 1),
-			createdAt: Date.now(),
-			lines: lines
-		});
-
-		console.log(this.list);
+	this.add = function (list) {
+		angular.forEach(list, function (l) {
+			this.list.push({
+				id: String(this.list.length + 1),
+				createdAt: Date.now(),
+				data: l
+			});
+		}.bind(this));
 	};
 
 	// 任意の id を持った帳票を返す
 	this.get = function (id) {
-		var list = this.list;
-		var index = list.length;
-		var sheet;
+		var index = this.list.length;
 
 		while (index--) {
-			sheet = list[index];
-			if (sheet.id === id) {
-				return sheet;
+			var l = this.list[index];
+			if (l.id === id) {
+				console.log('id!');
+				return l;
 			}
 		}
+		console.log('id not ..');
 		return null;
 	};
 }]);
 
 app.service('counting', function() {
-	this.getSubtotal = function(orderLine) {
-		return orderLine.unitPrice * orderLine.count;		
+	this.getSubtotal = function(data) {
+//		return data.unitPrice * data.count;		
 	};
 
 	this.getTotalAmount = function(lines) {
 		var totalAmount = 0;
 
-		angular.forEach(lines, function (orderLine) {
-			totalAmount += this.getSubtotal(orderLine);
+		angular.forEach(lines, function (data) {
+			totalAmount += this.getSubtotal(data);
 		}, this);
 
 		return totalAmount;

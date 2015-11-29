@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>home electronics list</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="../../css/main.css" />
     <style type="text/css">
@@ -14,9 +17,11 @@
     <div id="header"><h2 class="title">home electronics list</h2></div>
 
     <div id="contents">
+<!--
       <ul class="chapter-toc">
         <li>AngularJS</li>
       </ul>
+-->
 
       <!-- header ---------------------->
       <header class="container">
@@ -46,7 +51,7 @@
           </li>
         </ul>
         <div ng-hide="list" class="alert alert-info">
-          empty<a href="#/new" class="alert-link">add</a>
+          empty <a href="#/new" class="alert-link">add</a>
         </div>
       </script>
 
@@ -55,10 +60,6 @@
         <h1>add</h1>
         <form novalidate name="sheetForm" ng-submit="save()">
           <table class="table">
-
-        <colgroup></colgroup>
-        <colgroup span="3" class="col-sm"></colgroup>
-        <colgroup></colgroup>
             <thead>
               <tr>
                 <th>model number</th>
@@ -71,21 +72,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="orderLine in lines">
-                <td><input type="text" ng-model="orderLine.modelNumber"
+              <tr ng-repeat="data in lines">
+                <td><input type="text" ng-model="data.modelNumber"
                            required class="form-control"></td>
-                <td><input type="text" ng-model="orderLine.datePurchased"
+                <td><input type="text" ng-model="data.datePurchased"
                            required class="form-control"></td>
-                <td><input type="text" ng-model="orderLine.productName"
+                <td><input type="text" ng-model="data.productName"
                            required class="form-control"></td>
-                <td><input type="number" ng-model="orderLine.unitPrice"
+                <td><input type="number" ng-model="data.unitPrice"
                            required class="form-control" min="0" ng-pattern="/^\d+$/"></td>
-                <td><input type="number" ng-model="orderLine.count"
+                <td><input type="number" ng-model="data.count"
                            required class="form-control" min="0" ng-pattern="/^\d+$/"></td>
-                <td>{{ getSubtotal(orderLine) | number }}</td>
+                <td>{{ getSubtotal(data) | number }}</td>
                 <td><button type="button" ng-disabled="lines.length < 2"
                             class="btn btn-default btn-block"
-                            ng-click="removeLine(orderLine)">del</button></td>
+                            ng-click="removeLine(data)">del</button></td>
               </tr>
             </tbody>
             <tfoot>
@@ -96,7 +97,7 @@
             </tfoot>
           </table>
           <div class="alert alert-danger" ng-show="sheetForm.$invalid">
-            <span ng-show="sheetForm.$error.required">空欄が存在しています。</span>
+            <span ng-show="sheetForm.$error.required">fill in the blanks</span>
             <span ng-show="sheetForm.$error.min">単価、個数の最小値は 0 です。</span>
             <span ng-show="sheetForm.$error.pattern">単価、個数は整数で指定してください。</span>
           </div>
@@ -113,7 +114,7 @@
 
       <!-- show detail ---------------------->
       <script type="text/ng-template" id="sheet-tmpl">
-        <div ng-show="lines">
+        <div ng-show="data">
           <h1>detail #{{ id }}</h1>
           <p>create date: {{ createdAt | date:'yyyy/MM/dd HH:mm' }}</p>
           <table class="table">
@@ -128,13 +129,13 @@
               </tr>
             </thead>
             <tbody>
-              <tr ng-repeat="orderLine in lines">
-                <td>{{ orderLine.modelNumber }}</td>
-                <td>{{ orderLine.datePurchased }}</td>
-                <td>{{ orderLine.productName }}</td>
-                <td>{{ orderLine.unitPrice | number }}</td>
-                <td>{{ orderLine.count | number }}</td>
-                <td>{{ getSubtotal(orderLine) | number }}</td>
+              <tr>
+                <td>{{ data.modelNumber }}</td>
+                <td>{{ data.datePurchased }}</td>
+                <td>{{ data.productName }}</td>
+                <td>{{ data.unitPrice | number }}</td>
+                <td>{{ data.count | number }}</td>
+                <td>{{ getSubtotal(data) | number }}</td>
               </tr>
             </tbody>
             <tfoot>
@@ -145,7 +146,7 @@
             </tfoot>
           </table>
         </div>
-        <div class="alert alert-danger" ng-hide="lines">
+        <div class="alert alert-danger" ng-hide="data">
           wrong item
           <a href="#/new" class="alert-link">add</a>
         </div>
