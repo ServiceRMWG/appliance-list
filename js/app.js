@@ -29,9 +29,6 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', 'counting
 		return {
 			modelNumber: '',
 			datePurchased: '',
-			productName: '',
-			unitPrice: 0,
-			count: 0
 		};
 	}
 
@@ -93,6 +90,7 @@ app.service('sheets', [function () {
 	// 明細行リストを受け取り新しい帳票を作成して帳票リストに加える
 	this.add = function (list) {
 		angular.forEach(list, function (l) {
+			console.log(l);
 			this.list.push({
 				id: String(this.list.length + 1),
 				createdAt: Date.now(),
@@ -108,11 +106,9 @@ app.service('sheets', [function () {
 		while (index--) {
 			var l = this.list[index];
 			if (l.id === id) {
-				console.log('id!');
 				return l;
 			}
 		}
-		console.log('id not ..');
 		return null;
 	};
 }]);

@@ -43,7 +43,7 @@
       <!-- show list ---------------------->
       <script type="text/ng-template" id="index-tmpl">
         <h1>list</h1>
-        <ul ng-show="list">
+        <ul ng-show="list" class="list-unstyled">
           <li ng-repeat="sheet in list">
             #{{ sheet.id }}
             {{ sheet.createdAt | date: 'yyyy/MM/dd HH:mm'}}
@@ -51,7 +51,7 @@
           </li>
         </ul>
         <div ng-hide="list" class="alert alert-info">
-          empty <a href="#/new" class="alert-link">add</a>
+          list is empty, <a href="#/new" class="alert-link">add items</a>
         </div>
       </script>
 
@@ -64,10 +64,6 @@
               <tr>
                 <th>model number</th>
                 <th>date purchased</th>
-                <th>商品名</th>
-                <th>単価</th>
-                <th>個数</th>
-                <th>小計</th>
                 <th></th>
               </tr>
             </thead>
@@ -75,32 +71,16 @@
               <tr ng-repeat="data in lines">
                 <td><input type="text" ng-model="data.modelNumber"
                            required class="form-control"></td>
-                <td><input type="date" ng-model="string"
-                           ng-model="data.datePurchase"
+                <td><input type="date" ng-model="data.datePurchased"
                            required class="form-control"></td>
-                <td><input type="text" ng-model="data.productName"
-                           required class="form-control"></td>
-                <td><input type="number" ng-model="data.unitPrice"
-                           required class="form-control" min="0" ng-pattern="/^\d+$/"></td>
-                <td><input type="number" ng-model="data.count"
-                           required class="form-control" min="0" ng-pattern="/^\d+$/"></td>
-                <td>{{ getSubtotal(data) | number }}</td>
                 <td><button type="button" ng-disabled="lines.length < 2"
                             class="btn btn-default btn-block"
                             ng-click="removeLine(data)">del</button></td>
               </tr>
             </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="3">summary:</td>
-                <td colspan="2">{{ getTotalAmount(lines) | number }}</td>
-              </tr>
-            </tfoot>
           </table>
           <div class="alert alert-danger" ng-show="sheetForm.$invalid">
             <span ng-show="sheetForm.$error.required">fill in the blanks</span>
-            <span ng-show="sheetForm.$error.min">単価、個数の最小値は 0 です。</span>
-            <span ng-show="sheetForm.$error.pattern">単価、個数は整数で指定してください。</span>
           </div>
           <div>
             <button class="btn btn-primary" type="button" ng-click="addLine()">
@@ -123,38 +103,23 @@
               <tr>
                 <th>model name</th>
                 <th>date purchased</th>
-                <th>商品名</th>
-                <th>単価</th>
-                <th>個数</th>
-                <th>小計</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>{{ data.modelNumber }}</td>
-                <td>{{ data.datePurchased }}</td>
-                <td>{{ data.productName }}</td>
-                <td>{{ data.unitPrice | number }}</td>
-                <td>{{ data.count | number }}</td>
-                <td>{{ getSubtotal(data) | number }}</td>
+                <td>{{ data.datePurchased | date:'yyyy/MM/dd' }}</td>
               </tr>
             </tbody>
-            <tfoot>
-              <tr>
-                <td colspan="3">summary:</td>
-                <td>{{ getTotalAmount(lines) | number }}</td>
-              </tr>
-            </tfoot>
           </table>
         </div>
         <div class="alert alert-danger" ng-hide="data">
           wrong item
-          <a href="#/new" class="alert-link">add</a>
         </div>
       </script>
 
     </div>
-    
+
     <script src="js/angular.min.js"></script>
     <script src="js/angular-route.min.js"></script>
     <script src="js/app.js"></script>
