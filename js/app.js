@@ -21,7 +21,6 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.controller('SheetListController', ['$scope', 'sheets', function SheetListController($scope, sheets) {
 	$scope.list = sheets.list;
-	console.log(JSON.stringify(sheets.list[0]));
 }]);
 
 app.controller('CreationController', ['$scope', '$location', 'sheets', 'counting', function CreationController($scope, $location, sheets, counting) {
