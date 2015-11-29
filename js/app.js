@@ -66,7 +66,6 @@ app.service('sheets', [function () {
 
 	this.add = function (list) {
 		angular.forEach(list, function (l) {
-			console.log(l);
 			this.list.push({
 				id: String(this.list.length + 1),
 				createdAt: Date.now(),

@@ -83,6 +83,10 @@
             <span ng-show="sheetForm.$error.required">fill in the blanks</span>
           </div>
           <div>
+            <label class="btn btn-primary">
+              <input style="display: none" type="file">
+              read from camera
+            </label>
             <button class="btn btn-primary" type="button" ng-click="addLine()">
               add</button>
             <button class="btn btn-danger" type="button" ng-click="initialize()">
@@ -97,7 +101,7 @@
       <script type="text/ng-template" id="sheet-tmpl">
         <div ng-show="data">
           <h1>detail #{{ id }}</h1>
-          <p>create date: {{ createdAt | date:'yyyy/MM/dd HH:mm' }}</p>
+          <p>update: {{ createdAt | date:'yyyy/MM/dd HH:mm' }}</p>
           <table class="table">
             <thead>
               <tr>
