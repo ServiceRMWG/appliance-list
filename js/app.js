@@ -28,7 +28,7 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', 'counting
 	function createOrderLine() {
 		return {
 			modelNumber: '',
-			datePurchased: 0,
+			datePurchased: '',
 			productName: '',
 			unitPrice: 0,
 			count: 0
