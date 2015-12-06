@@ -57,11 +57,18 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 	
 }]);
 
-app.controller('SheetController', ['$scope', '$routeParams', 'sheets', function SheetController($scope, $routeParams, sheets) {
+app.controller('SheetController', ['$scope', '$routeParams', '$location', 'sheets', function SheetController($scope, $routeParams, $location, sheets) {
 	angular.extend($scope, sheets.get($routeParams.id));
+
+	$scope.remove = function(id) {
+		sheets.removeById(id);
+		$location.path('/');
+	};
 }]);
 
-app.service('sheets', [function () {
+app.service('sheets', ['$filter', function ($filter) {
+	var where = $filter('filter');
+
 	this.list = [];
 
 	this.add = function (list) {
@@ -72,6 +79,12 @@ app.service('sheets', [function () {
 				data: l
 			});
 		}.bind(this));
+	};
+
+	this.removeById = function(id) {
+		this.list = where(this.list, function(l) {
+			return l.id !== id;
+		});
 	};
 
 	this.get = function (id) {
