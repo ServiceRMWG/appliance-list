@@ -14,14 +14,12 @@ var Ocr = function() {
 	this.fgImage.addEventListener("touchmove", this.touchMoveHandler.bind(this), false);
 	this.fgImage.addEventListener("touchend", this.touchEndHandler.bind(this), false);
 
-	document.getElementById('picker').onchange = this.loadFile.bind(this);
-
 	this.isDragging = false;
 
 	this.debug('-------- debug print --------');
 };
 
-Ocr.prototype.loadFile = function() {
+Ocr.prototype.loadFile = function(file) {
 	var reader = new FileReader();
 	this.fgContext.clearRect(0, 0, this.fgImage.width, this.fgImage.height);
 	reader.onload = function() {
@@ -51,7 +49,7 @@ Ocr.prototype.loadFile = function() {
 		}.bind(this);
 		image.src = reader.result;
 	}.bind(this);
-	reader.readAsDataURL(document.getElementById('picker').files[0]);
+	reader.readAsDataURL(file);
 };
 
 Ocr.prototype.getCanvasPosition = function(e) {

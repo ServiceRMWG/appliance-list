@@ -56,7 +56,7 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 
 	$scope.loadFile = function(fileElem) {
 		var file = fileElem.files[0];
-		$scope.ocr.loadFile();
+		$scope.ocr.loadFile(file);
 	};
 
 	$scope.initialize();
