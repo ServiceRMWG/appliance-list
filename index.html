@@ -2,7 +2,7 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8">
-    <title>home electronics list</title>
+    <title>家電リスト</title>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -11,19 +11,19 @@
   </head>
   <body ng-app="App">
 
-    <div id="header"><h2 class="title">home electronics list</h2></div>
+    <div id="header"><h2 class="title">家電リスト</h2></div>
     <div id="contents">
 
       <!-- header ---------------------->
       <header class="container">
         <nav class="navbar navbar-default">
           <div class="navbar-header">
-            <a href="./" class="navbar-brand">home electronics list</a>
+            <a href="./" class="navbar-brand">家電リスト</a>
           </div>
           <div class="navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
-              <li><a href="#/">show list</a></li>
-              <li><a href="#/new">add</a></li>
+              <li><a href="#/">リスト表示</a></li>
+              <li><a href="#/new">追加</a></li>
             </ul>
           </div>
         </nav>
@@ -33,28 +33,28 @@
 
       <!-- show list ---------------------->
       <script type="text/ng-template" id="index-tmpl">
-        <h1>list</h1>
+        <h1>リスト</h1>
         <ul ng-show="list" class="list-unstyled">
           <li ng-repeat="sheet in list">
             #{{ sheet.id }}
             {{ sheet.createdAt | date: 'yyyy/MM/dd HH:mm'}}
-            <a ng-href="#/sheet/{{ sheet.id }}">show detail</a>
+            <a ng-href="#/sheet/{{ sheet.id }}">詳細</a>
           </li>
         </ul>
         <div ng-hide="list" class="alert alert-info">
-          list is empty, <a href="#/new" class="alert-link">add items</a>
+          未登録, <a href="#/new" class="alert-link">追加する</a>
         </div>
       </script>
 
       <!-- add list ---------------------->
       <script type="text/ng-template" id="new-tmpl">
-        <h1>add</h1>
+        <h1>追加</h1>
         <form novalidate name="sheetForm" ng-submit="save()">
           <table class="table">
             <thead>
               <tr>
-                <th>model number</th>
-                <th>date purchased</th>
+                <th>型番</th>
+                <th>購入日</th>
                 <th></th>
               </tr>
             </thead>
@@ -66,12 +66,12 @@
                            required class="form-control"></td>
                 <td><button type="button" ng-disabled="lines.length < 2"
                             class="btn btn-default btn-block"
-                            ng-click="removeLine(data)">del</button></td>
+                            ng-click="removeLine(data)">削除</button></td>
               </tr>
             </tbody>
           </table>
           <div class="alert alert-danger" ng-show="sheetForm.$invalid">
-            <span ng-show="sheetForm.$error.required">fill in the blanks</span>
+            <span ng-show="sheetForm.$error.required">空欄を埋めてください</span>
           </div>
           <div>
             <label class="btn btn-primary">
@@ -79,11 +79,11 @@
               <img src="img/camera.svg" height=18 />
             </label>
             <button class="btn btn-primary" type="button" ng-click="addLine()">
-              add</button>
+              追加</button>
             <button class="btn btn-danger" type="button" ng-click="initialize()">
-              clear</button>
+              クリア</button>
             <button class="btn btn-success" type="submit" ng-disabled="sheetForm.$invalid">
-              save</button>
+              保存</button>
           </div>
         </form>
       </script>
@@ -91,13 +91,13 @@
       <!-- show detail ---------------------->
       <script type="text/ng-template" id="sheet-tmpl">
         <div ng-show="data">
-          <h1>detail #{{ id }}</h1>
+          <h1>#{{ id }}</h1>
           <p>update: {{ createdAt | date:'yyyy/MM/dd HH:mm' }}</p>
           <table class="table">
             <thead>
               <tr>
-                <th>model name</th>
-                <th>date purchased</th>
+                <th>型番</th>
+                <th>購入日</th>
               </tr>
             </thead>
             <tbody>
@@ -108,10 +108,10 @@
             </tbody>
           </table>
           <button class="btn btn-primary" type="button" ng-click="remove(id)">
-            remove</button>
+            削除</button>
         </div>
         <div class="alert alert-danger" ng-hide="data">
-          wrong item
+          不正な番号です
         </div>
       </script>
 
