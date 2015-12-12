@@ -1,4 +1,4 @@
-var App = function() {
+var Ocr = function() {
 	this.canvas = document.getElementById('bgImage');
 	this.ctx = this.canvas.getContext('2d');
 
@@ -21,7 +21,7 @@ var App = function() {
 	this.debug('-------- debug print --------');
 };
 
-App.prototype.loadFile = function() {
+Ocr.prototype.loadFile = function() {
 	var reader = new FileReader();
 	this.fgContext.clearRect(0, 0, this.fgImage.width, this.fgImage.height);
 	reader.onload = function() {
@@ -54,7 +54,7 @@ App.prototype.loadFile = function() {
 	reader.readAsDataURL(document.getElementById('picker').files[0]);
 };
 
-App.prototype.getCanvasPosition = function(e) {
+Ocr.prototype.getCanvasPosition = function(e) {
 	if (e.touches.length > 0) {
 		var b = this.fgImage.getClientRects()[0];
 		return {x: parseInt(e.touches[0].clientX - b.left),
@@ -63,13 +63,13 @@ App.prototype.getCanvasPosition = function(e) {
 	return undefined;
 };
 
-App.prototype.touchStartHandler = function(e) {
+Ocr.prototype.touchStartHandler = function(e) {
 	this.dragStart = this.getCanvasPosition(e);
 	this.isDragging = true;
 	e.preventDefault();
 };
 
-App.prototype.touchEndHandler = function(e) {
+Ocr.prototype.touchEndHandler = function(e) {
 	if (this.isDragging) {
 		this.isDragging = false;
 	}
@@ -84,7 +84,7 @@ App.prototype.touchEndHandler = function(e) {
 	e.preventDefault();
 };
 
-App.prototype.touchMoveHandler = function(e) {
+Ocr.prototype.touchMoveHandler = function(e) {
 	if (this.isDragging) {
 		this.dragEnd = this.getCanvasPosition(e);
 		var w = this.dragEnd.x - this.dragStart.x;
@@ -95,11 +95,11 @@ App.prototype.touchMoveHandler = function(e) {
 	e.preventDefault();
 };
 
-App.prototype.debug = function(s) {
+Ocr.prototype.debug = function(s) {
 	document.getElementById('debug').innerText += s + '\n';
 };
 
-App.prototype.progress = function(progress) {
+Ocr.prototype.progress = function(progress) {
 	console.log(progress);
 	if (progress.recognized !== undefined) {
 		document.getElementById('progress').innerText = progress.recognized;
@@ -110,5 +110,5 @@ App.prototype.progress = function(progress) {
 };
 
 window.onload = function() {
-	var app = new App();
+	var ocr = new Ocr();
 };
