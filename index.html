@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="EUC-JP">
+    <title>ocr</title>
+    <script type="text/javascript" src="./js/jquery.js" charset="EUC-JP"></script>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <style TYPE="text/css">
+			#transcription, #nose ,#debug{
+				background: white;
+				border: 1px solid #ddd;
+				margin: 10px 0px;
+			}
+			#nose {
+				text-align: center;
+				font-size: 32px;
+				padding: 10px;
+			}
+			#transcription {
+				font-size: 20px;
+				padding: 30px;
+			}
+			#debug {
+				font-size: 10px;
+				padding: 16px;
+        line-height: 14px;
+			}
+    </style>
+    <script>
+/*
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-16703149-7', 'auto');
+      ga('send', 'pageview');
+*/
+   </script>
+  </head>
+  <body>
+    <div id="header"><h2 class="title">ocr</h2></div>
+    <div id="contents">
+      <ul class="chapter-toc">
+        <li>tesseract.js : ocr javascript library</li>
+      </ul>
+
+      <script src="js/ocrad.js"></script>
+      <script src="http://tenso.rs/tesseract.js"></script>
+      <script src="js/app.js"></script>
+
+      <input type="file" id="picker">
+
+      <pre id="progress"></pre>
+      <div id="transcription"></div>
+
+      <div id="nose" style="position: relative; height: 240px">
+        <canvas style="border: 0px solid black; position: absolute; left: 0; top: 0; z-index: 0;"
+                id="bgImage" width="320" height="240"></canvas>
+        <canvas style="border: 0px solid black; position: absolute; left: 0; top: 0; z-index: 1;"
+                id="fgImage" width="320" height="240"></canvas>
+      </div>
+      <pre id="debug"></pre>
+    </div>
+  </body>
+</html>
