@@ -33,6 +33,7 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 
 	$scope.initialize = function () {
 		$scope.lines = [createOrderLine()];
+		$scope.ocr = new Ocr();
 	};
 
 	$scope.addLine = function () {
@@ -53,8 +54,12 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 		}
 	};
 
+	$scope.loadFile = function(fileElem) {
+		var file = fileElem.files[0];
+		$scope.ocr.loadFile();
+	};
+
 	$scope.initialize();
-	
 }]);
 
 app.controller('SheetController', ['$scope', '$routeParams', '$location', 'sheets', function SheetController($scope, $routeParams, $location, sheets) {

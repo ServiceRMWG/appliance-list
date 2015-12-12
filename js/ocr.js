@@ -108,7 +108,3 @@ Ocr.prototype.progress = function(progress) {
 		this.debug(JSON.stringify(progress));
 	}
 };
-
-window.onload = function() {
-	var ocr = new Ocr();
-};
