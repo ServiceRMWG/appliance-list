@@ -89,7 +89,7 @@ Ocr.prototype.touchEndHandler = function(e) {
 		if (this.cb !== undefined) {
 			this.cb(result.text);
 		}
-	});
+	}.bind(this));
 	e.preventDefault();
 };
 
