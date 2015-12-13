@@ -36,6 +36,9 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 		$scope.ocr = new Ocr();
 		$scope.ocr.setCallback(function(text) {
 			ocrLines = text.split(/\n/);
+			// remove null strings
+			ocrLines.pop();
+			ocrLines.pop();
 			console.log(ocrLines);
 			$scope.$apply(function() {
 				$scope.lines[$scope.lines.length - 1].modelNumber = ocrLines[Math.floor((ocrLines.length - 1)/2)];
