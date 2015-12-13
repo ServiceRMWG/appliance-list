@@ -84,15 +84,24 @@ app.controller('SheetController', ['$scope', '$routeParams', '$location', 'sheet
 app.service('sheets', ['$filter', function ($filter) {
 	var where = $filter('filter');
 
-	this.list = [];
+	this.initialize = function() {
+		this.storage = localStorage;
+		var val = this.storage.getItem('applianceList');
+		if (val === null) {
+			this.list = [];
+		} else {
+			this.list = JSON.parse(val);
+		}
+	};
 
-	this.add = function (list) {
+	this.add = function(list) {
 		angular.forEach(list, function (l) {
 			this.list.push({
 				id: String(this.list.length + 1),
 				createdAt: Date.now(),
 				data: l
 			});
+			this.storage.setItem('applianceList', JSON.stringify(this.list));
 		}.bind(this));
 	};
 
@@ -113,4 +122,6 @@ app.service('sheets', ['$filter', function ($filter) {
 		}
 		return null;
 	};
+
+	this.initialize();
 }]);
