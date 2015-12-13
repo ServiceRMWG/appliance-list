@@ -34,6 +34,13 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 	$scope.initialize = function () {
 		$scope.lines = [createOrderLine()];
 		$scope.ocr = new Ocr();
+		$scope.ocr.setCallback(function(text) {
+			ocrLines = text.split(/\n/);
+			console.log(ocrLines);
+			$scope.$apply(function() {
+				$scope.lines[$scope.lines.length - 1].modelNumber = ocrLines[Math.floor((ocrLines.length - 1)/2)];
+			});
+		});
 	};
 
 	$scope.addLine = function () {

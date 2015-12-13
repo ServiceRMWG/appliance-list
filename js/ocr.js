@@ -19,6 +19,10 @@ var Ocr = function() {
 	this.debug('-------- debug print --------');
 };
 
+Ocr.prototype.setCallback = function(cb) {
+	this.cb = cb;
+};
+
 Ocr.prototype.loadFile = function(file) {
 	var reader = new FileReader();
 	this.fgContext.clearRect(0, 0, this.fgImage.width, this.fgImage.height);
@@ -44,8 +48,12 @@ Ocr.prototype.loadFile = function(file) {
 			var img = this.ctx.getImageData(0, 0, w, h);
 			Tesseract.recognize(img, {progress: this.progress.bind(this)}, function(err, result) {
 				console.log(result);
+				this.debug(result);
 				document.getElementById('transcription').innerText = result.text;
-			});
+				if (this.cb !== undefined) {
+					this.cb(result.text);
+				}
+			}.bind(this));
 		}.bind(this);
 		image.src = reader.result;
 	}.bind(this);
@@ -78,6 +86,9 @@ Ocr.prototype.touchEndHandler = function(e) {
 	Tesseract.recognize(img, {progress: this.progress.bind(this)}, function(err, result) {
 		console.log(result);
 		document.getElementById('transcription').innerText = result.text;
+		if (this.cb !== undefined) {
+			this.cb(result.text);
+		}
 	});
 	e.preventDefault();
 };
