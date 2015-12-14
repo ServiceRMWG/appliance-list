@@ -1,4 +1,7 @@
-self.addEventListener('message', function(e) {
-	console.log('hoge');
-	self.postMessage(e.data);
-}, false);
+var S3Uploader = function() {
+	self.addEventListener('message', function(e) {
+		self.postMessage(e.data);
+	}, false);
+};
+
+new S3Uploader();
