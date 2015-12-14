@@ -29,7 +29,7 @@ app.controller('SheetListController', ['$scope', 'sheets', function SheetListCon
 }]);
 
 app.controller('CreationController', ['$scope', '$location', 'sheets', function CreationController($scope, $location, sheets) {
-	function createOrderLine() {
+	function createItem() {
 		return {
 			modelNumber: '',
 			datePurchased: '',
@@ -37,7 +37,7 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 	}
 
 	$scope.initialize = function () {
-		$scope.lines = [createOrderLine()];
+		$scope.data = [createItem()];
 		$scope.ocr = new Ocr();
 		$scope.ocr.setCallback(function(text) {
 			ocrLines = text.split(/\n/);
@@ -46,27 +46,14 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 			ocrLines.pop();
 			console.log(ocrLines);
 			$scope.$apply(function() {
-				$scope.lines[$scope.lines.length - 1].modelNumber = ocrLines[Math.floor((ocrLines.length - 1)/2)];
+				$scope.data.modelNumber = ocrLines[Math.floor((ocrLines.length - 1)/2)];
 			});
 		});
 	};
 
-	$scope.addLine = function () {
-		$scope.lines.push(createOrderLine());
-	};
-
 	$scope.save = function () {
-		sheets.add($scope.lines);
+		sheets.add($scope.data);
 		$location.path('/');
-	};
-
-	$scope.removeLine = function (target) {
-		var lines = $scope.lines;
-		var index = lines.indexOf(target);
-
-		if (index !==  -1) {
-			lines.splice(index, 1);
-		}
 	};
 
 	$scope.loadFile = function(fileElem) {
@@ -99,15 +86,13 @@ app.service('sheets', ['$filter', function ($filter) {
 		}
 	};
 
-	this.add = function(list) {
-		angular.forEach(list, function (l) {
-			this.list.push({
-				id: String(this.list.length + 1),
-				createdAt: Date.now(),
-				data: l
-			});
-			this.storage.setItem('applianceList', JSON.stringify(this.list));
-		}.bind(this));
+	this.add = function(data) {
+		this.list.push({
+			id: String(this.list.length + 1),
+			createdAt: Date.now(),
+			data: data
+		});
+		this.storage.setItem('applianceList', JSON.stringify(this.list));
 	};
 
 	this.removeById = function(id) {
