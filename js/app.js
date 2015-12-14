@@ -19,8 +19,9 @@ app.config(['$routeProvider', function ($routeProvider) {
 		});	
 }]);
 
-app.controller('SheetListController', ['$scope', 'sheets', function SheetListController($scope, sheets) {
+app.controller('SheetListController', ['$scope', 'sheets', 's3uploader', function SheetListController($scope, sheets, s3uploader) {
 	$scope.list = sheets.list;
+	s3uploader.main();
 }]);
 
 app.controller('CreationController', ['$scope', '$location', 'sheets', function CreationController($scope, $location, sheets) {
@@ -124,4 +125,15 @@ app.service('sheets', ['$filter', function ($filter) {
 	};
 
 	this.initialize();
+}]);
+
+app.service('s3uploader', [function () {
+	var worker = new Worker('js/s3uploader.js');
+
+	this.main = function() {
+		worker.addEventListener('message', function(e) {
+			console.log('worker said: ' + e.data);
+		}, false);
+		worker.postMessage('Hello World');
+	};
 }]);
