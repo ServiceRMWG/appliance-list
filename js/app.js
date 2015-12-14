@@ -21,6 +21,11 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.controller('SheetListController', ['$scope', 'sheets', function SheetListController($scope, sheets) {
 	$scope.list = sheets.list;
+
+	$scope.listReset = function() {
+		sheets.listReset();
+		$scope.list = sheets.list;
+	};
 }]);
 
 app.controller('CreationController', ['$scope', '$location', 'sheets', function CreationController($scope, $location, sheets) {
@@ -121,6 +126,11 @@ app.service('sheets', ['$filter', function ($filter) {
 			}
 		}
 		return null;
+	};
+
+	this.listReset = function() {
+		this.list = [];
+		this.storage.removeItem('applianceList');
 	};
 
 	this.initialize();
