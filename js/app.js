@@ -33,6 +33,7 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 		return {
 			modelNumber: '',
 			datePurchased: '',
+			store: '',
 		};
 	}
 

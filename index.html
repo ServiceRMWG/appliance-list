@@ -64,6 +64,11 @@
                 <td><input type="date" ng-model="data.datePurchased"
                            required class="form-control"></td>
               </tr>
+              <tr>
+                <td>購入店舗</td>
+                <td><input type="text" ng-model="data.store"
+                           required class="form-control"></td>
+              </tr>
             </tbody>
           </table>
           <div class="alert alert-danger" ng-show="sheetForm.$invalid">
@@ -105,12 +110,14 @@
               <tr>
                 <th>型番</th>
                 <th>購入日</th>
+                <th>購入店舗</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>{{ data.modelNumber }}</td>
                 <td>{{ data.datePurchased | date:'yyyy/MM/dd' }}</td>
+                <td>{{ data.store }}</td>
               </tr>
             </tbody>
           </table>
