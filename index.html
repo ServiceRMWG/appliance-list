@@ -20,8 +20,8 @@
       <script type="text/ng-template" id="index-tmpl">
         <ul ng-show="list" class="list-unstyled">
           <li ng-repeat="sheet in list">
-            #{{ sheet.id }}
-            {{ sheet.createdAt | date: 'yyyy/MM/dd HH:mm'}}
+            {{ sheet.data.product }}
+            {{ sheet.data.maker }}
             <a ng-href="#/sheet/{{ sheet.id }}">詳細</a>
           </li>
         </ul>

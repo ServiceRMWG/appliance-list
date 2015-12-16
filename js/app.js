@@ -87,16 +87,16 @@ app.service('sheets', ['$filter', function ($filter) {
 			this.add({
 				modelNumber: 'aaa-xxx-000',
 				datePurchased: Date.now(),
-				product: '¥¨¥¢¥³¥ó',
+				product: 'ã‚¨ã‚¢ã‚³ãƒ³',
 				maker: 'Panasonic',
-				store: '¥ä¥Ş¥ÀÅÅµ¤'
+				store: 'ãƒ¤ãƒãƒ€é›»æ°—'
 			});
 			this.add({
 				modelNumber: 'bbb-x-YYY-000',
 				datePurchased: Date.now(),
-				product: '¥Æ¥ì¥Ó',
-				maker: 'Åì¼Ç',
-				store: '¥è¥É¥Ğ¥·¥«¥á¥é'
+				product: 'ãƒ†ãƒ¬ãƒ“',
+				maker: 'æ±èŠ',
+				store: 'ãƒ¨ãƒ‰ãƒã‚·ã‚«ãƒ¡ãƒ©'
 			});
 		} else {
 			this.list = JSON.parse(val);
