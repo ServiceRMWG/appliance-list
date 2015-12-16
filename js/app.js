@@ -84,6 +84,20 @@ app.service('sheets', ['$filter', function ($filter) {
 		var val = this.storage.getItem('applianceList');
 		if (val === null) {
 			this.list = [];
+			this.list.push({
+				modelNumber: 'aaa-xxx-000',
+				datePurchased: Date.now(),
+				product: 'エアコン',
+				maker: 'Panasonic',
+				store: 'ヤマダ電気'
+			});
+			this.list.push({
+				modelNumber: 'bbb-x-YYY-000',
+				datePurchased: Date.now(),
+				product: 'テレビ',
+				maker: '東芝',
+				store: 'ヨドバシカメラ'
+			});
 		} else {
 			this.list = JSON.parse(val);
 		}
