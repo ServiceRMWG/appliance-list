@@ -14,26 +14,10 @@
     <div id="header"><h2 class="title">家電リスト</h2></div>
     <div id="contents">
 
-      <!-- header ---------------------->
-      <header class="container">
-        <nav class="navbar navbar-default">
-          <div class="navbar-header">
-            <a href="./" class="navbar-brand">家電リスト</a>
-          </div>
-          <div class="navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li><a href="#/">リスト表示</a></li>
-              <li><a href="#/new">追加</a></li>
-            </ul>
-          </div>
-        </nav>
-      </header>
-
       <div ng-view></div>
 
       <!-- show list ---------------------->
       <script type="text/ng-template" id="index-tmpl">
-        <h1>リスト</h1>
         <ul ng-show="list" class="list-unstyled">
           <li ng-repeat="sheet in list">
             #{{ sheet.id }}
