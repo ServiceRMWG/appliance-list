@@ -84,14 +84,14 @@ app.service('sheets', ['$filter', function ($filter) {
 		var val = this.storage.getItem('applianceList');
 		if (val === null) {
 			this.list = [];
-			this.list.push({
+			this.add({
 				modelNumber: 'aaa-xxx-000',
 				datePurchased: Date.now(),
 				product: 'エアコン',
 				maker: 'Panasonic',
 				store: 'ヤマダ電気'
 			});
-			this.list.push({
+			this.add({
 				modelNumber: 'bbb-x-YYY-000',
 				datePurchased: Date.now(),
 				product: 'テレビ',
