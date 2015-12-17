@@ -25,10 +25,12 @@
             <a ng-href="#/sheet/{{ sheet.id }}">詳細</a>
           </li>
         </ul>
+        <button ng-show="list" class="btn btn-primary" type="button" ng-click="register()">
+          新規登録</button>
         <button ng-show="list" class="btn btn-danger" type="button" ng-click="listReset()">
           一括削除</button>
         <div ng-hide="list" class="alert alert-info">
-          未登録, <a href="#/new" class="alert-link">追加する</a>
+          <a href="#/new" class="alert-link">追加する</a>
         </div>
       </script>
 

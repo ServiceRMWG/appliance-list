@@ -14,13 +14,22 @@ app.config(['$routeProvider', function ($routeProvider) {
 			templateUrl: 'sheet-tmpl',
 			controller: 'SheetController'
 		})
+		.when('/edit/:id', {
+			templateUrl: 'new-tmpl',
+			controller: 'CreationController'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});	
 }]);
 
-app.controller('SheetListController', ['$scope', 'sheets', function SheetListController($scope, sheets) {
+app.controller('SheetListController', ['$scope', '$location', 'sheets', function SheetListController($scope, $location, sheets) {
 	$scope.list = sheets.list;
+
+	$scope.register = function() {
+		var id = sheets.insert();
+		$location.path('/edit/' + id);
+	};
 
 	$scope.listReset = function() {
 		sheets.listReset();
@@ -28,7 +37,7 @@ app.controller('SheetListController', ['$scope', 'sheets', function SheetListCon
 	};
 }]);
 
-app.controller('CreationController', ['$scope', '$location', 'sheets', function CreationController($scope, $location, sheets) {
+app.controller('CreationController', ['$scope', '$routeParams', '$location', 'sheets', function CreationController($scope, $routeParams, $location, sheets) {
 	function createItem() {
 		return {
 			modelNumber: '',
@@ -55,7 +64,8 @@ app.controller('CreationController', ['$scope', '$location', 'sheets', function 
 	};
 
 	$scope.save = function () {
-		sheets.add($scope.data);
+		var orig = sheets.get($routeParams.id);
+		sheets.edit(orig.id, $scope.data);
 		$location.path('/');
 	};
 
@@ -81,26 +91,57 @@ app.service('sheets', ['$filter', function ($filter) {
 
 	this.initialize = function() {
 		this.storage = localStorage;
+		var nextId = this.storage.getItem('nextId');
+		if (nextId === null) {
+			this.storage.setItem('nextId', 1);
+		}
 		var val = this.storage.getItem('applianceList');
 		if (val === null) {
 			this.list = [];
-			this.add({
+			var id = this.insert();
+			this.edit(id, {
 				modelNumber: 'aaa-xxx-000',
 				datePurchased: Date.now(),
 				product: 'エアコン',
 				maker: 'Panasonic',
 				store: 'ヤマダ電気'
 			});
-			this.add({
+			var id = this.insert();
+			this.edit(id, {
 				modelNumber: 'bbb-x-YYY-000',
 				datePurchased: Date.now(),
 				product: 'テレビ',
 				maker: '東芝',
 				store: 'ヨドバシカメラ'
 			});
+			var id = this.insert();
+			this.edit(id, {
+				modelNumber: 'ccc-x-YYY-000',
+				datePurchased: Date.now(),
+				product: 'テレビ2',
+				maker: '東芝',
+				store: 'ヨドバシカメラ'
+			});
 		} else {
 			this.list = JSON.parse(val);
 		}
+	};
+
+	this.edit = function(id, data) {
+		var index = this.list.length;
+
+		while (index--) {
+			var l = this.list[index];
+			if (l.id == id) {
+				this.list[index] = {
+					id: id,
+					createdAt: Date.now(),
+					data: data
+				};
+				this.storage.setItem('applianceList', JSON.stringify(this.list));
+			}
+		}
+		return null;
 	};
 
 	this.add = function(data) {
@@ -110,6 +151,19 @@ app.service('sheets', ['$filter', function ($filter) {
 			data: data
 		});
 		this.storage.setItem('applianceList', JSON.stringify(this.list));
+	};
+
+	this.insert = function() {
+		var nextId = this.storage.getItem('nextId');
+		this.list.push({
+			id: String(nextId),
+			createdAt: undefined,
+			data: undefined
+		});
+		this.storage.setItem('applianceList', JSON.stringify(this.list));
+		this.storage.setItem('nextId', Number(nextId) + 1);
+
+		return nextId;
 	};
 
 	this.removeById = function(id) {
@@ -133,6 +187,7 @@ app.service('sheets', ['$filter', function ($filter) {
 	this.listReset = function() {
 		this.list = [];
 		this.storage.removeItem('applianceList');
+		this.storage.removeItem('nextId');
 	};
 
 	this.initialize();
