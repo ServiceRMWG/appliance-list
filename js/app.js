@@ -49,7 +49,7 @@ app.controller('CreationController', ['$scope', '$routeParams', '$location', 'sh
 	}
 
 	$scope.initialize = function () {
-		$scope.data = [createItem()];
+		angular.extend($scope, sheets.get($routeParams.id));
 		$scope.ocr = new Ocr();
 		$scope.ocr.setCallback(function(text) {
 			ocrLines = text.split(/\n/);
@@ -64,8 +64,7 @@ app.controller('CreationController', ['$scope', '$routeParams', '$location', 'sh
 	};
 
 	$scope.save = function () {
-		var orig = sheets.get($routeParams.id);
-		sheets.edit(orig.id, $scope.data);
+		sheets.edit($scope.id, $scope.data);
 		$location.path('/');
 	};
 
