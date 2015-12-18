@@ -13,114 +13,112 @@
 
     <div id="header"><h2 class="title">家電リスト</h2></div>
     <div id="contents">
-
       <div ng-view></div>
-
-      <!-- show list ---------------------->
-      <script type="text/ng-template" id="index-tmpl">
-        <ul ng-show="list" class="list-unstyled">
-          <li ng-repeat="sheet in list">
-            {{ sheet.data.product }}
-            {{ sheet.data.maker }}
-            <a ng-href="#/sheet/{{ sheet.id }}">詳細</a>
-          </li>
-        </ul>
-        <button ng-show="list" class="btn btn-danger" type="button" ng-click="listReset()">
-          一括削除</button>
-        <div ng-hide="list" class="alert alert-info">
-          <a href="#/new" class="alert-link">追加する</a>
-        </div>
-        <button class="btn btn-primary" type="button" ng-click="register()">
-          新規登録</button>
-      </script>
-
-      <!-- add list ---------------------->
-      <script type="text/ng-template" id="new-tmpl">
-
-        <div class="page-header">
-          <h3>新規登録</h3>
-        </div>
-
-        <form novalidate class="container" name="sheetForm" ng-submit="save()">
-          <table class="table">
-            <div class="form-group">
-              <label>品名</label>
-              <input type="text" ng-model="data.product" required class="form-control">
-            </div>
-            <div class="form-group">
-              <label>メーカ</label>
-              <input type="text" ng-model="data.maker" required class="form-control">
-            </div>
-            <div class="form-group">
-              <label>型番</label>
-              <input type="text" ng-model="data.modelNumber" required class="form-control">
-            </div>
-            <div class="form-group">
-              <label>購入日</label>
-              <input type="date" ng-model="data.datePurchased" required class="form-control">
-            </div>
-            <div class="form-group">
-              <label>購入店舗</label>
-              <input type="text" ng-model="data.store" required class="form-control">
-            </div>
-          </table>
-          <div class="alert alert-danger" ng-show="sheetForm.$invalid">
-            <span ng-show="sheetForm.$error.required">空欄を埋めてください</span>
-          </div>
-          <div>
-            <label class="btn btn-primary">
-              <input ng-show="" type="file" onchange="angular.element(this).scope().loadFile(this)">
-              <img src="img/camera.svg" height=18 />
-            </label>
-            <button class="btn btn-danger" type="button" ng-click="cancel()">
-              キャンセル</button>
-            <button class="btn btn-success" type="submit" ng-disabled="sheetForm.$invalid">
-              保存</button>
-          </div>
-          <div>
-            <pre id="progress"></pre>
-            <div id="transcription"></div>
-            <div id="nose" style="position: relative; height: 240px">
-              <canvas style="border: 0px solid black; position: absolute; left: 0; top: 0; z-index: 0;"
-                      id="bgImage" width="320" height="240"></canvas>
-              <canvas style="border: 0px solid black; position: absolute; left: 0; top: 0; z-index: 1;"
-                      id="fgImage" width="320" height="240"></canvas>
-            </div>
-            <pre id="debug"></pre>
-          </div>
-        </form>
-      </script>
-
-      <!-- show detail ---------------------->
-      <script type="text/ng-template" id="sheet-tmpl">
-        <div ng-show="data">
-          <h1>#{{ id }}</h1>
-          <p>update: {{ createdAt | date:'yyyy/MM/dd HH:mm' }}</p>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>型番</th>
-                <th>購入日</th>
-                <th>購入店舗</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>{{ data.modelNumber }}</td>
-                <td>{{ data.datePurchased | date:'yyyy/MM/dd' }}</td>
-                <td>{{ data.store }}</td>
-              </tr>
-            </tbody>
-          </table>
-          <button class="btn btn-primary" type="button" ng-click="remove(id)">
-            削除</button>
-        </div>
-        <div class="alert alert-danger" ng-hide="data">
-          不正な番号です
-        </div>
-      </script>
-
     </div>
+
+    <!-- show list ---------------------->
+    <script type="text/ng-template" id="index-tmpl">
+      <ul ng-show="list" class="list-unstyled">
+        <li ng-repeat="sheet in list">
+          {{ sheet.data.product }}
+          {{ sheet.data.maker }}
+          <a ng-href="#/sheet/{{ sheet.id }}">詳細</a>
+        </li>
+      </ul>
+      <button ng-show="list" class="btn btn-danger" type="button" ng-click="listReset()">
+        一括削除</button>
+      <div ng-hide="list" class="alert alert-info">
+        <a href="#/new" class="alert-link">追加する</a>
+      </div>
+      <button class="btn btn-primary" type="button" ng-click="register()">
+        新規登録</button>
+    </script>
+
+    <!-- add list ---------------------->
+    <script type="text/ng-template" id="new-tmpl">
+
+      <div class="page-header">
+        <h3>新規登録</h3>
+      </div>
+
+      <form novalidate class="container" name="sheetForm" ng-submit="save()">
+        <table class="table">
+          <div class="form-group">
+            <label>品名</label>
+            <input type="text" ng-model="data.product" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label>メーカ</label>
+            <input type="text" ng-model="data.maker" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label>型番</label>
+            <input type="text" ng-model="data.modelNumber" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label>購入日</label>
+            <input type="date" ng-model="data.datePurchased" required class="form-control">
+          </div>
+          <div class="form-group">
+            <label>購入店舗</label>
+            <input type="text" ng-model="data.store" required class="form-control">
+          </div>
+        </table>
+        <div class="alert alert-danger" ng-show="sheetForm.$invalid">
+          <span ng-show="sheetForm.$error.required">空欄を埋めてください</span>
+        </div>
+        <div>
+          <label class="btn btn-primary">
+            <input ng-show="" type="file" onchange="angular.element(this).scope().loadFile(this)">
+            <img src="img/camera.svg" height=18 />
+          </label>
+          <button class="btn btn-danger" type="button" ng-click="cancel()">
+            キャンセル</button>
+          <button class="btn btn-success" type="submit" ng-disabled="sheetForm.$invalid">
+            保存</button>
+        </div>
+        <div>
+          <pre id="progress"></pre>
+          <div id="transcription"></div>
+          <div id="nose" style="position: relative; height: 240px">
+            <canvas style="border: 0px solid black; position: absolute; left: 0; top: 0; z-index: 0;"
+                    id="bgImage" width="320" height="240"></canvas>
+            <canvas style="border: 0px solid black; position: absolute; left: 0; top: 0; z-index: 1;"
+                    id="fgImage" width="320" height="240"></canvas>
+          </div>
+          <pre id="debug"></pre>
+        </div>
+      </form>
+    </script>
+
+    <!-- show detail ---------------------->
+    <script type="text/ng-template" id="sheet-tmpl">
+      <div ng-show="data">
+        <h1>#{{ id }}</h1>
+        <p>update: {{ createdAt | date:'yyyy/MM/dd HH:mm' }}</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>型番</th>
+              <th>購入日</th>
+              <th>購入店舗</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{{ data.modelNumber }}</td>
+              <td>{{ data.datePurchased | date:'yyyy/MM/dd' }}</td>
+              <td>{{ data.store }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <button class="btn btn-primary" type="button" ng-click="remove(id)">
+          削除</button>
+      </div>
+      <div class="alert alert-danger" ng-hide="data">
+        不正な番号です
+      </div>
+    </script>
 
 <!--
     <script src="http://tenso.rs/tesseract.js"></script>
