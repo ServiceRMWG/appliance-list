@@ -18,13 +18,22 @@
 
     <!-- show list ---------------------->
     <script type="text/ng-template" id="index-tmpl">
-      <ul ng-show="list" class="list-unstyled">
-        <li ng-repeat="sheet in list track by $index">
-          {{ sheet.data.product }}
-          {{ sheet.data.maker }}
-          <a ng-href="#/sheet/{{ $index }}">詳細</a>
-        </li>
-      </ul>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>品番</th>
+            <th>メーカ</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="sheet in list track by $index">
+            <td>{{ sheet.data.product }}</td>
+            <td>{{ sheet.data.maker }}</td>
+            <td><a ng-href="#/sheet/{{ $index }}">詳細</a></td>
+          </tr>
+        </tbody>
+      </table>
       <button ng-show="list" class="btn btn-danger" type="button" ng-click="listReset()">
         一括削除</button>
       <div ng-hide="list" class="alert alert-info">
