@@ -64,7 +64,13 @@ app.controller('CreationController', ['$scope', '$routeParams', '$location', 'sh
 	};
 
 	$scope.save = function () {
-		sheets.edit($scope.id, $scope.data);
+		sheets.edit($scope.id, {
+			modelNumber: $scope.data.modelNumber,
+			datePurchased: $scope.data.datePurchased,
+			product: $scope.data.product,
+			maker: $scope.data.maker,
+			store: $scope.data.store
+		});
 		$location.path('/');
 	};
 

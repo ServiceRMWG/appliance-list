@@ -25,21 +25,31 @@
             <a ng-href="#/sheet/{{ sheet.id }}">詳細</a>
           </li>
         </ul>
-        <button ng-show="list" class="btn btn-primary" type="button" ng-click="register()">
-          新規登録</button>
         <button ng-show="list" class="btn btn-danger" type="button" ng-click="listReset()">
           一括削除</button>
         <div ng-hide="list" class="alert alert-info">
           <a href="#/new" class="alert-link">追加する</a>
         </div>
+        <button class="btn btn-primary" type="button" ng-click="register()">
+          新規登録</button>
       </script>
 
       <!-- add list ---------------------->
       <script type="text/ng-template" id="new-tmpl">
-        <h1>追加</h1>
+        <h1>新規登録</h1>
         <form novalidate name="sheetForm" ng-submit="save()">
           <table class="table">
             <tbody>
+              <tr>
+                <td>品名</td>
+                <td><input type="text" ng-model="data.product"
+                           required class="form-control"></td>
+              </tr>
+              <tr>
+                <td>メーカ</td>
+                <td><input type="text" ng-model="data.maker"
+                           required class="form-control"></td>
+              </tr>
               <tr>
                 <td>型番</td>
                 <td><input type="text" ng-model="data.modelNumber"
@@ -65,8 +75,8 @@
               <input ng-show="" type="file" onchange="angular.element(this).scope().loadFile(this)">
               <img src="img/camera.svg" height=18 />
             </label>
-            <button class="btn btn-danger" type="button" ng-click="initialize()">
-              クリア</button>
+            <button class="btn btn-danger" type="button" ng-click="cancel()">
+              キャンセル</button>
             <button class="btn btn-success" type="submit" ng-disabled="sheetForm.$invalid">
               保存</button>
           </div>
