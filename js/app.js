@@ -50,6 +50,7 @@ app.controller('CreationController', ['$scope', '$routeParams', '$location', 'sh
 
 	$scope.initialize = function () {
 		angular.extend($scope, sheets.get($routeParams.id));
+		$scope.adding = ($scope.createdAt === undefined? true: false);
 		$scope.ocr = new Ocr();
 		$scope.ocr.setCallback(function(text) {
 			ocrLines = text.split(/\n/);
@@ -77,6 +78,16 @@ app.controller('CreationController', ['$scope', '$routeParams', '$location', 'sh
 	$scope.loadFile = function(fileElem) {
 		var file = fileElem.files[0];
 		$scope.ocr.loadFile(file);
+	};
+
+	$scope.cancel = function() {
+		console.log('cancel ' + $scope.id);
+		if ($scope.adding === true) {
+			sheets.removeById($scope.id);
+			$location.path('/');
+		} else {
+			$location.path('/sheet/' + $scope.id);
+		}
 	};
 
 	$scope.initialize();
