@@ -81,7 +81,6 @@ app.controller('CreationController', ['$scope', '$routeParams', '$location', 'sh
 	};
 
 	$scope.cancel = function() {
-		console.log('cancel ' + $scope.id);
 		if ($scope.adding === true) {
 			sheets.removeById($scope.id);
 			$location.path('/');
@@ -113,7 +112,7 @@ app.service('sheets', ['$filter', function ($filter) {
 		}
 		var val = this.storage.getItem('applianceList');
 		if (val === null) {
-			this.list = [];
+			this.list = {};
 			var id = this.insert();
 			this.edit(id, {
 				modelNumber: 'aaa-xxx-000',
@@ -144,38 +143,24 @@ app.service('sheets', ['$filter', function ($filter) {
 	};
 
 	this.edit = function(id, data) {
-		var index = this.list.length;
-
-		while (index--) {
-			var l = this.list[index];
-			if (l.id == id) {
-				this.list[index] = {
-					id: id,
-					createdAt: Date.now(),
-					data: data
-				};
-				this.storage.setItem('applianceList', JSON.stringify(this.list));
-			}
+		if (this.list[id] === undefined) {
+			return null;
 		}
-		return null;
-	};
-
-	this.add = function(data) {
-		this.list.push({
-			id: String(this.list.length + 1),
+		this.list[id] = {
+			id: id,
 			createdAt: Date.now(),
 			data: data
-		});
+		};
 		this.storage.setItem('applianceList', JSON.stringify(this.list));
 	};
 
 	this.insert = function() {
 		var nextId = this.storage.getItem('nextId');
-		this.list.push({
+		this.list[nextId] = {
 			id: String(nextId),
 			createdAt: undefined,
 			data: undefined
-		});
+		};
 		this.storage.setItem('applianceList', JSON.stringify(this.list));
 		this.storage.setItem('nextId', Number(nextId) + 1);
 
@@ -183,25 +168,16 @@ app.service('sheets', ['$filter', function ($filter) {
 	};
 
 	this.removeById = function(id) {
-		this.list = where(this.list, function(l) {
-			return l.id !== id;
-		});
+		delete this.list[id];
+		this.storage.setItem('applianceList', JSON.stringify(this.list));
 	};
 
 	this.get = function (id) {
-		var index = this.list.length;
-
-		while (index--) {
-			var l = this.list[index];
-			if (l.id === id) {
-				return l;
-			}
-		}
-		return null;
+		return this.list[id];
 	};
 
 	this.listReset = function() {
-		this.list = [];
+		this.list = {};
 		this.storage.removeItem('applianceList');
 		this.storage.removeItem('nextId');
 	};
