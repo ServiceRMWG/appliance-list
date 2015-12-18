@@ -19,10 +19,10 @@
     <!-- show list ---------------------->
     <script type="text/ng-template" id="index-tmpl">
       <ul ng-show="list" class="list-unstyled">
-        <li ng-repeat="sheet in list">
+        <li ng-repeat="sheet in list track by $index">
           {{ sheet.data.product }}
           {{ sheet.data.maker }}
-          <a ng-href="#/sheet/{{ sheet.id }}">詳細</a>
+          <a ng-href="#/sheet/{{ $index }}">詳細</a>
         </li>
       </ul>
       <button ng-show="list" class="btn btn-danger" type="button" ng-click="listReset()">
