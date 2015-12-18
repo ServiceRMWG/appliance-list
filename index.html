@@ -36,36 +36,33 @@
 
       <!-- add list ---------------------->
       <script type="text/ng-template" id="new-tmpl">
-        <h1>新規登録</h1>
-        <form novalidate name="sheetForm" ng-submit="save()">
+
+        <div class="page-header">
+          <h3>新規登録</h3>
+        </div>
+
+        <form novalidate class="container" name="sheetForm" ng-submit="save()">
           <table class="table">
-            <tbody>
-              <tr>
-                <td>品名</td>
-                <td><input type="text" ng-model="data.product"
-                           required class="form-control"></td>
-              </tr>
-              <tr>
-                <td>メーカ</td>
-                <td><input type="text" ng-model="data.maker"
-                           required class="form-control"></td>
-              </tr>
-              <tr>
-                <td>型番</td>
-                <td><input type="text" ng-model="data.modelNumber"
-                           required class="form-control"></td>
-              </tr>
-              <tr>
-                <td>購入日</td>
-                <td><input type="date" ng-model="data.datePurchased"
-                           required class="form-control"></td>
-              </tr>
-              <tr>
-                <td>購入店舗</td>
-                <td><input type="text" ng-model="data.store"
-                           required class="form-control"></td>
-              </tr>
-            </tbody>
+            <div class="form-group">
+              <label>品名</label>
+              <input type="text" ng-model="data.product" required class="form-control">
+            </div>
+            <div class="form-group">
+              <label>メーカ</label>
+              <input type="text" ng-model="data.maker" required class="form-control">
+            </div>
+            <div class="form-group">
+              <label>型番</label>
+              <input type="text" ng-model="data.modelNumber" required class="form-control">
+            </div>
+            <div class="form-group">
+              <label>購入日</label>
+              <input type="date" ng-model="data.datePurchased" required class="form-control">
+            </div>
+            <div class="form-group">
+              <label>購入店舗</label>
+              <input type="text" ng-model="data.store" required class="form-control">
+            </div>
           </table>
           <div class="alert alert-danger" ng-show="sheetForm.$invalid">
             <span ng-show="sheetForm.$error.required">空欄を埋めてください</span>
