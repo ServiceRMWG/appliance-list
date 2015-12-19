@@ -37,7 +37,7 @@
       <button ng-show="list" class="btn btn-danger" type="button" ng-click="listReset()">
         一括削除</button>
       <div ng-hide="list" class="alert alert-info">
-        <a href="#/new" class="alert-link">追加する</a>
+        <a ng-href="#/new" class="alert-link">追加する</a>
       </div>
       <button class="btn btn-primary" type="button" ng-click="register()">
         新規登録</button>
@@ -103,8 +103,6 @@
     <!-- show detail ---------------------->
     <script type="text/ng-template" id="sheet-tmpl">
       <div ng-show="data">
-        <h1>#{{ id }}</h1>
-        <p>update: {{ createdAt | date:'yyyy/MM/dd HH:mm' }}</p>
         <table class="table">
           <thead>
             <tr>
@@ -121,6 +119,9 @@
             </tr>
           </tbody>
         </table>
+        <p>last update: {{ createdAt | date:'yyyy/MM/dd HH:mm' }}</p>
+        <a class="btn btn-success" ng-href="#/">
+          戻る</a>
         <a class="btn btn-primary" ng-href="#/edit/{{ id }}">
           編集</a>
         <button class="btn btn-danger" type="button" ng-click="remove(id)">
