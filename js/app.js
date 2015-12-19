@@ -133,29 +133,6 @@ app.service('sheets', ['$filter', function ($filter) {
 		if (val === null) {
 			this.list = [];
 			var id = this.insert();
-			this.edit(id, {
-				modelNumber: 'aaa-xxx-000',
-				datePurchased: new Date(),
-				product: 'エアコン',
-				maker: 'Panasonic',
-				store: 'ヤマダ電気'
-			});
-			var id = this.insert();
-			this.edit(id, {
-				modelNumber: 'bbb-x-YYY-000',
-				datePurchased: new Date(),
-				product: 'テレビ',
-				maker: '東芝',
-				store: 'ヨドバシカメラ'
-			});
-			var id = this.insert();
-			this.edit(id, {
-				modelNumber: 'ccc-x-YYY-000',
-				datePurchased: new Date(),
-				product: 'テレビ2',
-				maker: '東芝',
-				store: 'ヨドバシカメラ'
-			});
 		} else {
 			this.list = angular.fromJson(val);
 			// convert to date object
