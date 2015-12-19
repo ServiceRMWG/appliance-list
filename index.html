@@ -109,6 +109,8 @@
     <!-- show detail ---------------------->
     <script type="text/ng-template" id="sheet-tmpl">
       <div ng-show="data">
+        <a class="btn btn-primary" ng-href="#/">
+          戻る</a>
         <table class="table">
           <thead>
             <tr>
@@ -126,9 +128,7 @@
           </tbody>
         </table>
         <p>last update: {{ createdAt | date:'yyyy/MM/dd HH:mm' }}</p>
-        <a class="btn btn-success" ng-href="#/">
-          戻る</a>
-        <a class="btn btn-primary" ng-href="#/edit/{{ id }}">
+        <a class="btn btn-warning" ng-href="#/edit/{{ id }}">
           編集</a>
         <button class="btn btn-danger" type="button" ng-click="remove(id)">
           削除</button>

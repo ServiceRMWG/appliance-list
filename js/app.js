@@ -129,7 +129,7 @@ app.service('sheets', ['$filter', function ($filter) {
 	this.initialize = function() {
 		this.storage = localStorage;
 		var val = this.storage.getItem('applianceList');
-		
+
 		if (val === null) {
 			this.list = [];
 			var id = this.insert();
