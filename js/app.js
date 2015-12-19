@@ -82,10 +82,10 @@ app.controller('CreationController', ['$scope', '$routeParams', '$location', 'sh
 
 	$scope.cancel = function() {
 		if ($scope.adding === true) {
-			sheets.removeById($scope.id);
+			sheets.removeById($routeParams.id);
 			$location.path('/');
 		} else {
-			$location.path('/sheet/' + $scope.id);
+			$location.path('/sheet/' + $routeParams.id);
 		}
 	};
 
