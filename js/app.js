@@ -25,6 +25,26 @@ app.config(['$routeProvider', function ($routeProvider) {
 
 app.controller('SheetListController', ['$scope', '$location', 'sheets', function SheetListController($scope, $location, sheets) {
 	$scope.list = sheets.list;
+	$scope.sortedKey = undefined;
+	$scope.ascending = true;
+
+	$scope.sort = function(key) {
+		$scope.ascending = ($scope.sortedKey == key ? (! $scope.ascending) : true);
+		if ($scope.ascending === true) {
+			$scope.list.sort(function(a, b){
+				if(a.data[key] < b.data[key]) return -1;
+				if(a.data[key] > b.data[key]) return 1;
+				return 0;
+			});
+		} else {
+			$scope.list.sort(function(a, b){
+				if(a.data[key] < b.data[key]) return 1;
+				if(a.data[key] > b.data[key]) return -1;
+				return 0;
+			});
+		}
+		$scope.sortedKey = key;
+	};
 
 	$scope.register = function() {
 		var id = sheets.insert();

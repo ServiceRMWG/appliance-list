@@ -21,8 +21,8 @@
       <table class="table">
         <thead>
           <tr>
-            <th>品名</th>
-            <th>メーカ</th>
+            <th ng-click="sort('product')">品名</th>
+            <th ng-click="sort('maker')">メーカ</th>
             <th></th>
           </tr>
         </thead>
@@ -84,7 +84,7 @@
           <div ng-show="sheetForm.$error.required">空欄を埋めてください</div>
           <div ng-show="sheetForm.modelNumber.$error.pattern">
             型番に不正な文字が使用されています
-          </div>        
+          </div>
         </div>
         <div>
           <button class="btn btn-danger" type="button" ng-click="cancel()">
