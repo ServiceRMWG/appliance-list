@@ -63,8 +63,8 @@
           <div class="form-group">
             <label>型番</label>
             <div class="input-group">
-              <input type="text" ng-model="data.modelNumber" required
-                     class="form-control">
+              <input type="text" ng-model="data.modelNumber" required ng-pattern="/^[a-zA-Z0-9\-/]*$/"
+                     class="form-control" name="modelNumber">
               <div class="input-group-addon">
                 <input ng-show="" type="file" onchange="angular.element(this).scope().loadFile(this)">
                 <img src="img/camera.svg" height=20 />
@@ -81,7 +81,10 @@
           </div>
         </table>
         <div class="alert alert-danger" ng-show="sheetForm.$invalid">
-          <span ng-show="sheetForm.$error.required">空欄を埋めてください</span>
+          <div ng-show="sheetForm.$error.required">空欄を埋めてください</div>
+          <div ng-show="sheetForm.modelNumber.$error.pattern">
+            型番に不正な文字が使用されています
+          </div>        
         </div>
         <div>
           <button class="btn btn-danger" type="button" ng-click="cancel()">
