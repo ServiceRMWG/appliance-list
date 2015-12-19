@@ -65,11 +65,9 @@
             <div class="input-group">
               <input type="text" ng-model="data.modelNumber" required
                      class="form-control">
-              <div class="input-group-btn">
-                <label class="btn btn-default">
-                  <input ng-show="" type="file" onchange="angular.element(this).scope().loadFile(this)">
-                  <img src="img/camera.svg" height=18 />
-                </label>
+              <div class="input-group-addon">
+                <input ng-show="" type="file" onchange="angular.element(this).scope().loadFile(this)">
+                <img src="img/camera.svg" height=18 />
               </div>
             </div>
           </div>
