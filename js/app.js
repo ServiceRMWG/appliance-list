@@ -67,7 +67,7 @@ app.controller('CreationController', ['$scope', '$routeParams', '$location', 'sh
 	$scope.save = function () {
 		sheets.edit($routeParams.id, {
 			modelNumber: $scope.data.modelNumber,
-			datePurchased: $scope.data.datePurchased,
+			datePurchased: new Date($scope.data.datePurchased),
 			product: $scope.data.product,
 			maker: $scope.data.maker,
 			store: $scope.data.store
@@ -95,6 +95,8 @@ app.controller('CreationController', ['$scope', '$routeParams', '$location', 'sh
 app.controller('SheetController', ['$scope', '$routeParams', '$location', 'sheets', function SheetController($scope, $routeParams, $location, sheets) {
 	angular.extend($scope, sheets.get($routeParams.id));
 
+	$scope.id = $routeParams.id;
+
 	$scope.remove = function(id) {
 		sheets.removeById(id);
 		$location.path('/');
@@ -107,12 +109,13 @@ app.service('sheets', ['$filter', function ($filter) {
 	this.initialize = function() {
 		this.storage = localStorage;
 		var val = this.storage.getItem('applianceList');
+		
 		if (val === null) {
 			this.list = [];
 			var id = this.insert();
 			this.edit(id, {
 				modelNumber: 'aaa-xxx-000',
-				datePurchased: Date.now(),
+				datePurchased: new Date(),
 				product: 'エアコン',
 				maker: 'Panasonic',
 				store: 'ヤマダ電気'
@@ -120,7 +123,7 @@ app.service('sheets', ['$filter', function ($filter) {
 			var id = this.insert();
 			this.edit(id, {
 				modelNumber: 'bbb-x-YYY-000',
-				datePurchased: Date.now(),
+				datePurchased: new Date(),
 				product: 'テレビ',
 				maker: '東芝',
 				store: 'ヨドバシカメラ'
@@ -128,13 +131,17 @@ app.service('sheets', ['$filter', function ($filter) {
 			var id = this.insert();
 			this.edit(id, {
 				modelNumber: 'ccc-x-YYY-000',
-				datePurchased: Date.now(),
+				datePurchased: new Date(),
 				product: 'テレビ2',
 				maker: '東芝',
 				store: 'ヨドバシカメラ'
 			});
 		} else {
 			this.list = angular.fromJson(val);
+			// convert to date object
+			angular.forEach(this.list, function(v) {
+				v.data.datePurchased = new Date(v.data.datePurchased);
+			});
 		}
 	};
 

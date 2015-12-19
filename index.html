@@ -121,7 +121,9 @@
             </tr>
           </tbody>
         </table>
-        <button class="btn btn-primary" type="button" ng-click="remove(id)">
+        <a class="btn btn-primary" ng-href="#/edit/{{ id }}">
+          編集</a>
+        <button class="btn btn-danger" type="button" ng-click="remove(id)">
           削除</button>
       </div>
       <div class="alert alert-danger" ng-hide="data">
