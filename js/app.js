@@ -132,7 +132,6 @@ app.service('sheets', ['$filter', function ($filter) {
 
 		if (val === null) {
 			this.list = [];
-			var id = this.insert();
 		} else {
 			this.list = angular.fromJson(val);
 			// convert to date object
