@@ -109,20 +109,30 @@
     <!-- show detail ---------------------->
     <script type="text/ng-template" id="sheet-tmpl">
       <div ng-show="data">
+        <p>
         <a class="btn btn-primary" ng-href="#/">
           戻る</a>
+        </p>
         <table class="table">
-          <thead>
-            <tr>
-              <th>型番</th>
-              <th>購入日</th>
-              <th>購入店舗</th>
-            </tr>
-          </thead>
           <tbody>
             <tr>
+              <th>品名</th>
+              <td>{{ data.product }}</td>
+            </tr>
+            <tr>
+              <th>メーカ</th>
+              <td>{{ data.maker }}</td>
+            </tr>
+            <tr>
+              <th>型番</th>
               <td>{{ data.modelNumber }}</td>
+            </tr>
+            <tr>
+              <th>購入日</th>
               <td>{{ data.datePurchased | date:'yyyy/MM/dd' }}</td>
+            </tr>
+            <tr>
+              <th>購入店舗</th>
               <td>{{ data.store }}</td>
             </tr>
           </tbody>
