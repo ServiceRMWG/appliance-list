@@ -79,6 +79,9 @@ app.controller('CreationController', ['$scope', '$routeParams', '$location', 'sh
 			ocrLines.pop();
 			console.log(ocrLines);
 			$scope.$apply(function() {
+				if ($scope.data === undefined) {
+					$scope.data = {};
+				}
 				$scope.data.modelNumber = ocrLines[Math.floor((ocrLines.length - 1)/2)];
 			});
 		});
