@@ -66,8 +66,11 @@
               <input type="text" ng-model="data.modelNumber" required ng-pattern="/^[a-zA-Z0-9\-/]*$/"
                      class="form-control" name="modelNumber">
               <div class="input-group-addon">
-                <input ng-show="" type="file" onchange="angular.element(this).scope().loadFile(this)">
-                <img src="img/camera.svg" height=20 />
+                <input id="file-select" ng-show="" type="file"
+                       onchange="angular.element(this).scope().loadFile(this)">
+                <label for="file-select" style="margin: 0px; padding:0px;">
+                  <img src="img/camera.svg" height=20 />
+                </label>
               </div>
             </div>
           </div>
